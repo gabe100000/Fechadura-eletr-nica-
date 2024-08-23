@@ -1,0 +1,58 @@
+// C++ code
+//
+#include <Servo.h>
+
+int pos1 = 0;
+
+int pos2 = 0;
+
+int pos4 = 0;
+
+int pos3 = 0;
+
+Servo servo_11;
+
+void setup()
+{
+  pinMode(5, INPUT);
+  pinMode(9, INPUT);
+  pinMode(3, INPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+  servo_11.attach(11, 500, 2500);
+  pinMode(8, INPUT);
+  pinMode(7, INPUT);
+  pinMode(4, INPUT);
+  pinMode(6, INPUT);
+}
+
+void loop()
+{
+  if (digitalRead(5) == HIGH && digitalRead(9) == HIGH || digitalRead(3) == HIGH && digitalRead(9) == HIGH) {
+    digitalWrite(12, HIGH);
+    digitalWrite(13, LOW);
+    servo_11.write(90);
+  }
+  if (digitalRead(8) == HIGH && digitalRead(5) == HIGH) {
+    pos1 += 1;
+  }
+  if (digitalRead(7) == HIGH && digitalRead(5) == HIGH) {
+    pos2 += 4;
+  }
+  if (digitalRead(9) == HIGH && digitalRead(4) == HIGH) {
+    pos3 += 0;
+  }
+  if (digitalRead(6) == HIGH && digitalRead(4) == HIGH) {
+    pos4 += 8;
+    if (pos1 == 1) {
+      if (pos2 == 4) {
+        if (pos3 == 0) {
+          if (pos4 == 8) {
+            servo_11.write(270);
+          }
+        }
+      }
+    }
+  }
+  delay(10); // Delay a little bit to improve simulation performance
+}
